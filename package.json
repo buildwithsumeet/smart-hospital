@@ -1,0 +1,32 @@
+{
+  "name": "smart-hospital-platform",
+  "version": "1.0.0",
+  "description": "Smart Hospital Management & Appointment Platform Monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "services/*",
+    "client"
+  ],
+  "scripts": {
+    "build:common": "npm run build --workspace=@hospital/common",
+    "build:services": "npm run build --workspaces --if-present",
+    "build": "npm run build:common && npm run build:services",
+    "test": "npm run test --workspaces --if-present",
+    "test:e2e": "jest --config tests/e2e/jest.config.js --no-watchman --runInBand",
+    "dev": "concurrently -n \"GATEWAY,AUTH,PATIENT,DOCTOR,APPOINTMENT,BILLING,NOTIF,CLIENT\" -c \"magenta,blue,cyan,green,yellow,red,gray,white\" \"npm run dev:gateway\" \"npm run dev:auth\" \"npm run dev:patient\" \"npm run dev:doctor\" \"npm run dev:appointment\" \"npm run dev:billing\" \"npm run dev:notification\" \"npm run dev:client\"",
+    "dev:auth": "npm run dev --workspace=@hospital/auth-service",
+    "dev:patient": "npm run dev --workspace=@hospital/patient-service",
+    "dev:doctor": "npm run dev --workspace=@hospital/doctor-service",
+    "dev:appointment": "npm run dev --workspace=@hospital/appointment-service",
+    "dev:billing": "npm run dev --workspace=@hospital/billing-service",
+    "dev:notification": "npm run dev --workspace=@hospital/notification-service",
+    "dev:gateway": "npm run dev --workspace=@hospital/api-gateway",
+    "dev:client": "npm run dev --workspace=@hospital/client"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "concurrently": "^10.0.7",
+    "typescript": "^5.3.3"
+  }
+}
