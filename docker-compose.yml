@@ -44,11 +44,10 @@ services:
   ollama:
     image: alpine/ollama:latest
     container_name: hospital-ai-ollama
-    user: ai
     ports:
       - "11434:11434"
     volumes:
-      - ollama_data:/home/ai/.ollama
+      - ollama_data:/root/.ollama
     environment:
       - OLLAMA_HOST=0.0.0.0
     restart: unless-stopped
